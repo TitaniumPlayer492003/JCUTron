@@ -1,7 +1,9 @@
 {
-    "java.project.sourcePaths": ["src"],
-    "java.project.outputPath": "bin",
+    "java.project.sourcePaths": [
+        "src"
+    ],
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
-    ]
+        "lib\\mysql-connector-j-8.0.32.jar"
+    ],
+    "java.project.outputPath": "bin",
 }
