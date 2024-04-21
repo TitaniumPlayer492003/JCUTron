@@ -1,0 +1,18 @@
+
+import javax.swing.JFrame;
+
+public class GAME{
+    public static void main(String[] args) {
+        JFrame window = new JFrame("JCUTron");
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
+
+        // Add GamePanelto the window
+        GamePanel gp = new GamePanel();
+        window.add(gp);
+        window.pack(); //by doing this the window adjusts it size to the GamePanel
+
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
+    }
+}
