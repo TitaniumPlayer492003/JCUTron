@@ -1,10 +1,10 @@
-
 /*
  * To run the Game Loop: -> Use Thread Class -> Implement Runnable -> Create run method
  */
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -12,6 +12,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static final int HEIGHT = 800;
     final int FPS = 30;
     Thread gameThread;
+    Board board = new Board();
 
     public GamePanel() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -37,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
          * once every drawInterval second.
          */
         double drawInterval = 1000000000.0 / FPS; // 1000000000.0 nanoseconds in a second
-        double delta = 0;
+        double delta = 0; // Represents the time elapsed since the last frame was drawn.
         long lastTime = System.nanoTime();
         long currentTime;
 
@@ -47,11 +48,34 @@ public class GamePanel extends JPanel implements Runnable {
 
             delta += (currentTime - lastTime) / drawInterval;
             lastTime = currentTime;
+            /*
+             * (currentTime - lastTime): This calculates the difference in time (in
+             * nanoseconds) between the current time (currentTime)
+             * and the time of the last frame (lastTime). This tells us how much time has
+             * passed since the last frame was drawn.
+             * 
+             * /drawInterval: This divides the time difference by the drawInterval, which
+             * represents the target time between frames (in nanoseconds).
+             * /drawInterval: helps us measure how many times the target frame
+             * time fits into the actual time difference between frames. This allows us to
+             * keep track of elapsed time in a way that's independent of the actual frame
+             * rate.
+             * 
+             * delta += ...: This adds the result of the division to delta. delta is a
+             * variable that accumulates the time between frames.
+             * By adding the result of the division, we're effectively keeping track of how
+             * many "target intervals" have passed since the last frame.
+             * 
+             * lastTime = currentTime: This updates the lastTime variable to the current
+             * time. This ensures that we're measuring the time difference
+             * from the last frame to the current frame in subsequent iterations of the game
+             * loop.
+             */
 
-            if (delta >= 1){
+            if (delta >= 1) {
                 update();
                 repaint();
-                delta --;
+                delta--;
             }
         }
     }
@@ -65,8 +89,12 @@ public class GamePanel extends JPanel implements Runnable {
      * and is used to draw objects on the panel.
      * We call this method at a certain time interval(FPS).
      */
-    private void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        Graphics2D g2 = (Graphics2D) g;
+
+        board.draw(g2);
     }
 
 }
