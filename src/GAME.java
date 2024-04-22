@@ -14,5 +14,7 @@ public class GAME{
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+        
+        gp.launchGame(); //once the window is created we call the launchGame method
     }
 }
