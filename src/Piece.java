@@ -42,6 +42,29 @@ public class Piece {
         return row * Board.SQUARE_SIZE;
     }
 
+    /*
+     * In the next 2 methods we add HALF_SQUARE_SIZE get to the center point of the
+     * image. Else, the top left part of the image will be considered, and wherever
+     * that is the activeP will be placed there.
+     */
+    public int getCol(int x) {
+        return (x + Board.HALF_SQUARE_SIZE) / Board.SQUARE_SIZE;
+    }
+
+    public int getRow(int y) {
+        return (y + Board.HALF_SQUARE_SIZE) / Board.SQUARE_SIZE;
+    }
+
+    public void updatePosition(){
+
+        x = getX(col);
+        y = getY(row);
+        // Updating the pre as the piece has moved; confirming the move
+        preCol = getCol(x);
+        preRow = getRow(y);
+    }
+
+
     public void draw(Graphics2D g2) {
         g2.drawImage(image, x, y, Board.SQUARE_SIZE, Board.SQUARE_SIZE, null);
     }

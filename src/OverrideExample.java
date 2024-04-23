@@ -6,7 +6,7 @@ class Superclass {
     }
 }
 
-class Subclass extends Superclass{
+class Subclass extends Superclass {
     @Override
     public void myMethod() {
         System.out.println("Subclass method");

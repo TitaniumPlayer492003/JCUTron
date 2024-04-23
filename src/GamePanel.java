@@ -2,6 +2,7 @@
 /*
  * To run the Game Loop: -> Use Thread Class -> Implement Runnable -> Create run method
  */
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -16,10 +17,12 @@ public class GamePanel extends JPanel implements Runnable {
     final int FPS = 30;
     Thread gameThread;
     Board board = new Board();
+    Mouse mouse = new Mouse();
 
     // PIECES
     public static ArrayList<Piece> pieces = new ArrayList<>();
     public static ArrayList<Piece> simPieces = new ArrayList<>();
+    Piece activeP;
 
     // COLOR
     public static final int WHITE = 0;
@@ -29,6 +32,8 @@ public class GamePanel extends JPanel implements Runnable {
     public GamePanel() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.black);
+        addMouseMotionListener(mouse);
+        addMouseListener(mouse);
 
         setPieces();
         copyPieces(pieces, simPieces);
@@ -144,6 +149,47 @@ public class GamePanel extends JPanel implements Runnable {
 
     private void update() {
 
+        /// MOUSE PRESSED ///
+        if (mouse.pressed) {
+            if (activeP == null) {
+                // If the activeP is null, check if you can pick up a piece
+                for (Piece piece : simPieces) {
+                    // If the mouse is on an ally piece, pick it up as the activeP
+                    if (piece.color == currentColor && piece.col == mouse.x / Board.SQUARE_SIZE
+                            && piece.row == mouse.y / Board.SQUARE_SIZE) {
+
+                        activeP = piece;
+                    }
+                }
+            } else {
+                // If the player is holding, a piece, simulate the move
+                simulate();
+            }
+        }
+
+        /// MOUSE RELEASED ///
+        if(mouse.pressed == false){
+            if(activeP != null){
+                activeP.updatePosition();
+                activeP = null;
+            }
+        }
+    }
+
+    /**
+     * This method simulates a thinking phase. This phase is important in turn-based
+     * strategy games. Here a player has not made a move (yet), but picked up a
+     * piece and
+     * is 'thinking' where to put it.
+     */
+    private void simulate() {
+
+        // If a piece is being held, update its position
+        activeP.x = mouse.x - Board.HALF_SQUARE_SIZE;
+        activeP.y = mouse.y - Board.HALF_SQUARE_SIZE;
+        activeP.col = activeP.getCol(activeP.x);
+        activeP.row = activeP.getRow(activeP.y);
+
     }
 
     /**
@@ -162,6 +208,17 @@ public class GamePanel extends JPanel implements Runnable {
         // PIECES
         for (Piece p : simPieces) {
             p.draw(g2);
+        }
+
+        if (activeP != null) {
+            g2.setColor(Color.green);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.25f));
+            g2.fillRect(activeP.col * Board.SQUARE_SIZE, activeP.row * Board.SQUARE_SIZE, Board.SQUARE_SIZE,
+                    Board.SQUARE_SIZE);
+
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+            activeP.draw(g2);
         }
     }
 
