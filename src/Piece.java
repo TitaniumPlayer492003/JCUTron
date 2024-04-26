@@ -10,6 +10,7 @@ public class Piece {
     public int x, y;
     public int col, row, preCol, preRow;
     public int color;
+    public Piece hittingP;
 
     public Piece(int color, int col, int row) {
 
@@ -55,6 +56,15 @@ public class Piece {
         return (y + Board.HALF_SQUARE_SIZE) / Board.SQUARE_SIZE;
     }
 
+    public int getIndex(){
+        for (int index = 0; index < GamePanel.simPieces.size(); index++){
+            if(GamePanel.simPieces.get(index) == this){
+                return index;
+            }
+        }
+        return 0;
+    }
+
     public void updatePosition(){
 
         x = getX(col);
@@ -63,7 +73,53 @@ public class Piece {
         preCol = getCol(x);
         preRow = getRow(y);
     }
+    public void resetPosition(){
+        col = preCol;
+        row = preRow;
+        x = getX(col);
+        y = getY(row);
+    }
+    public boolean canMove(int targetCol, int targetRow){
+        return false;
+    }
+    /**
+     * Checks whether a piece is on the board or not.
+     * @param targetCol
+     * @param targetRow
+     * @return true/false
+     */
+    public boolean isWithinBoard(int targetCol, int targetRow){
+        if (0<=targetCol && targetCol<=7 && 0<= targetRow && targetRow <=7){
+            return true;
+        }
+        return false;
+    }
+    public Piece getHittingP(int targetCol, int targetRow){
+        for(Piece piece : GamePanel.simPieces){
+            if(piece.col == targetCol && piece.row == targetRow && piece != this){
+                return piece;
+            }
+        }
+        return null;
+    }
+    public boolean isValidSquare(int targetCol, int targetRow){
 
+        hittingP = getHittingP(targetCol, targetRow);
+
+        if (hittingP == null) {
+            return true; //Square is vacant
+        }
+        else {
+
+            if (hittingP.color != this.color) {
+                return true; //If the colour is different, it can be captured
+            }
+            else{
+                hittingP = null;
+            }
+        }
+        return false;
+    }
 
     public void draw(Graphics2D g2) {
         g2.drawImage(image, x, y, Board.SQUARE_SIZE, Board.SQUARE_SIZE, null);
