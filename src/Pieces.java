@@ -39,24 +39,24 @@ public class Pieces {
             }
         }
 
-        public boolean canMove(int targetCol, int targetRow){
-            
-            if(isWithinBoard(targetCol, targetRow) && isSameSquare(targetCol, targetRow) == false){
-                
+        public boolean canMove(int targetCol, int targetRow) {
+
+            if (isWithinBoard(targetCol, targetRow) && isSameSquare(targetCol, targetRow) == false) {
+
                 // Vertical & Horizontal movement
-                if(targetCol == preCol || targetRow == preRow){
-                    if(isValidSquare(targetCol, targetRow) && pieceIsOnStraightLine(targetCol, targetRow) == false){
+                if (targetCol == preCol || targetRow == preRow) {
+                    if (isValidSquare(targetCol, targetRow) && pieceIsOnStraightLine(targetCol, targetRow) == false) {
                         return true;
                     }
                 }
                 // Diagonal Movement
-                if (Math.abs(targetCol - preCol) == Math.abs(targetRow - preRow)){
-                    if (isValidSquare(targetCol, targetRow) && pieceIsOnDiagonalLine(targetCol, targetRow) == false){
+                if (Math.abs(targetCol - preCol) == Math.abs(targetRow - preRow)) {
+                    if (isValidSquare(targetCol, targetRow) && pieceIsOnDiagonalLine(targetCol, targetRow) == false) {
                         return true;
                     }
                 }
             }
-            
+
             return false;
         }
     }
@@ -144,6 +144,38 @@ public class Pieces {
                 image = getImage("piece/b-pawn");
             }
         }
-    }
 
+        public boolean canMove(int targetCol, int targetRow) {
+            if (isWithinBoard(targetCol, targetRow) && isSameSquare(targetCol, targetRow) == false) {
+
+                // Define the moveValue based on the pawn's color
+                int moveValue;
+                if (color == GamePanel.WHITE)
+                    moveValue = -1;
+                else
+                    moveValue = 1;
+
+                // Check the hittingP
+                hittingP = getHittingP(targetCol, targetRow);
+
+                // 1 square movement
+                if (targetCol == preCol && targetRow == preRow + moveValue && hittingP == null)
+                    return true;
+
+                // 2 square movement
+                if (targetCol == preCol && targetRow == preRow + moveValue * 2 && hittingP == null && moved == false
+                        && pieceIsOnStraightLine(targetCol, targetRow) == false) {
+                    return true;
+                }
+
+                // Capturing Pieces
+                if (Math.abs(targetCol - preCol) == 1 && targetRow == preRow + moveValue && hittingP != null
+                        && hittingP.color != color) {
+                    return true;
+                }
+
+            }
+            return false;
+        }
+    }
 }

@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
         pieces.add(new Pieces.Rook(WHITE, 0, 7));
         pieces.add(new Pieces.Knight(WHITE, 1, 7));
         pieces.add(new Pieces.Bishop(WHITE, 2, 7));
-        pieces.add(new Pieces.Queen(WHITE, 3, 4));
+        pieces.add(new Pieces.Queen(WHITE, 3, 7));
         pieces.add(new Pieces.King(WHITE, 4, 7));
         pieces.add(new Pieces.Bishop(WHITE, 5, 7));
         pieces.add(new Pieces.Knight(WHITE, 6, 7));
@@ -172,17 +172,17 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         /// MOUSE BUTTON RELEASED ///
-        if(mouse.pressed == false){
-            if(activeP != null){
-                if(validSquare){
+        if (mouse.pressed == false) {
+            if (activeP != null) {
+                if (validSquare) {
 
                     // MOVE CONFIRMED
-                    
-                    // Update the piece list in case a piece has been  captured and removed during the simulation 
+
+                    // Update the piece list in case a piece has been captured and removed during
+                    // the simulation
                     copyPieces(simPieces, pieces);
                     activeP.updatePosition();
-                }
-                else{
+                } else {
                     // The move is not valid so reset everything
                     copyPieces(pieces, simPieces);
                     activeP.resetPosition();
@@ -203,8 +203,8 @@ public class GamePanel extends JPanel implements Runnable {
         canMove = false;
         validSquare = false;
 
-        //Reset the piece list in every loop
-        //This is basically for restoring the removed place during the simulation
+        // Reset the piece list in every loop
+        // This is basically for restoring the removed place during the simulation
         copyPieces(pieces, simPieces);
 
         // If a piece is being held, update its position
@@ -218,7 +218,7 @@ public class GamePanel extends JPanel implements Runnable {
             canMove = true;
             // validSquare = true;
 
-            if (activeP.hittingP != null){
+            if (activeP.hittingP != null) {
                 simPieces.remove(activeP.hittingP.getIndex());
             }
             validSquare = true;
@@ -245,13 +245,13 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         if (activeP != null) {
-            if(canMove){
+            if (canMove) {
                 g2.setColor(Color.green);
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.25f));
                 g2.fillRect(activeP.col * Board.SQUARE_SIZE, activeP.row * Board.SQUARE_SIZE, Board.SQUARE_SIZE,
-                    Board.SQUARE_SIZE);
-                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-                }
+                        Board.SQUARE_SIZE);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+            }
 
             activeP.draw(g2);
         }

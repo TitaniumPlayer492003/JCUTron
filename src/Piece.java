@@ -11,6 +11,7 @@ public class Piece {
     public int col, row, preCol, preRow;
     public int color;
     public Piece hittingP;
+    public boolean moved;
 
     public Piece(int color, int col, int row) {
 
@@ -72,6 +73,7 @@ public class Piece {
         // Updating the pre as the piece has moved; confirming the move
         preCol = getCol(x);
         preRow = getRow(y);
+        moved = true;
     }
 
     public void resetPosition() {
@@ -173,46 +175,46 @@ public class Piece {
         return false;
     }
 
-    public boolean pieceIsOnDiagonalLine(int targetCol, int targetRow){
-        
-        if (targetRow < preRow){
+    public boolean pieceIsOnDiagonalLine(int targetCol, int targetRow) {
+
+        if (targetRow < preRow) {
             // When piece is moving up-left
-            for (int c = preCol - 1; c > targetCol; c--){
+            for (int c = preCol - 1; c > targetCol; c--) {
                 int diff = Math.abs(c - preCol);
-                for(Piece piece : GamePanel.simPieces){
-                    if(piece.col == c && piece.row == preRow - diff){
+                for (Piece piece : GamePanel.simPieces) {
+                    if (piece.col == c && piece.row == preRow - diff) {
                         hittingP = piece;
                         return true;
                     }
                 }
             }
             // When piece is moving up-right
-            for (int c = preCol + 1; c < targetCol; c++){
+            for (int c = preCol + 1; c < targetCol; c++) {
                 int diff = Math.abs(c - preCol);
-                for(Piece piece : GamePanel.simPieces){
-                    if(piece.col == c && piece.row == preRow - diff){
+                for (Piece piece : GamePanel.simPieces) {
+                    if (piece.col == c && piece.row == preRow - diff) {
                         hittingP = piece;
                         return true;
                     }
                 }
             }
         }
-        if (targetRow > preRow){
+        if (targetRow > preRow) {
             // When piece is moving down-left
-            for (int c = preCol - 1; c > targetCol; c--){
+            for (int c = preCol - 1; c > targetCol; c--) {
                 int diff = Math.abs(c - preCol);
-                for(Piece piece : GamePanel.simPieces){
-                    if(piece.col == c && piece.row == preRow + diff){
+                for (Piece piece : GamePanel.simPieces) {
+                    if (piece.col == c && piece.row == preRow + diff) {
                         hittingP = piece;
                         return true;
                     }
                 }
             }
             // When piece is moving down-right
-            for (int c = preCol + 1; c < targetCol; c++){
+            for (int c = preCol + 1; c < targetCol; c++) {
                 int diff = Math.abs(c - preCol);
-                for(Piece piece : GamePanel.simPieces){
-                    if(piece.col == c && piece.row == preRow + diff){
+                for (Piece piece : GamePanel.simPieces) {
+                    if (piece.col == c && piece.row == preRow + diff) {
                         hittingP = piece;
                         return true;
                     }
