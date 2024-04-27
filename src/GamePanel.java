@@ -68,7 +68,7 @@ public class GamePanel extends JPanel implements Runnable {
         pieces.add(new Pieces.Knight(WHITE, 6, 7));
         pieces.add(new Pieces.Rook(WHITE, 7, 7));
 
-        // BlackPieces.
+        // BlackPieces
         pieces.add(new Pieces.Rook(BLACK, 0, 0));
         pieces.add(new Pieces.Knight(BLACK, 1, 0));
         pieces.add(new Pieces.Bishop(BLACK, 2, 0));
@@ -182,6 +182,7 @@ public class GamePanel extends JPanel implements Runnable {
                     // the simulation
                     copyPieces(simPieces, pieces);
                     activeP.updatePosition();
+                    changePlayer();
                 } else {
                     // The move is not valid so reset everything
                     copyPieces(pieces, simPieces);
@@ -224,6 +225,11 @@ public class GamePanel extends JPanel implements Runnable {
             validSquare = true;
         }
 
+    }
+    private void changePlayer(){
+        if(currentColor == WHITE) currentColor = BLACK;
+        else currentColor = WHITE;
+        activeP = null;
     }
 
     /**
