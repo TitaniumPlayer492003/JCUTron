@@ -1,7 +1,7 @@
 import javax.swing.JFrame;
 
 public class GAME {
-    public static void main(String[] args) {
+    public static void launch() {
         JFrame window = new JFrame("JCUTron");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
