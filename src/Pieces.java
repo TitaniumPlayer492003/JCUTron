@@ -5,6 +5,8 @@ public class Pieces {
         public King(int color, int col, int row) {
             super(color, col, row);
 
+            type = Type.KING;
+
             if (color == GamePanel.WHITE) {
                 image = getImage("/piece/w-king");
             } else {
@@ -68,6 +70,8 @@ public class Pieces {
         public Queen(int color, int col, int row) {
             super(color, col, row);
 
+            type = Type.QUEEN;
+
             if (color == GamePanel.WHITE) {
                 image = getImage("/piece/w-queen");
             } else {
@@ -102,6 +106,8 @@ public class Pieces {
         public Rook(int color, int col, int row) {
             super(color, col, row);
 
+            type = Type.ROOK;
+
             if (color == GamePanel.WHITE) {
                 image = getImage("/piece/w-rook");
             } else {
@@ -125,6 +131,8 @@ public class Pieces {
 
         public Bishop(int color, int col, int row) {
             super(color, col, row);
+
+            type = Type.BISHOP;
 
             if (color == GamePanel.WHITE) {
                 image = getImage("/piece/w-bishop");
@@ -150,6 +158,8 @@ public class Pieces {
         public Knight(int color, int col, int row) {
             super(color, col, row);
 
+            type = Type.KNIGHT;
+
             if (color == GamePanel.WHITE) {
                 image = getImage("/piece/w-knight");
             } else {
@@ -173,6 +183,8 @@ public class Pieces {
 
         public Pawn(int color, int col, int row) {
             super(color, col, row);
+
+            type = Type.PAWN;
 
             if (color == GamePanel.WHITE) {
                 image = getImage("piece/w-pawn");
@@ -208,6 +220,16 @@ public class Pieces {
                 if (Math.abs(targetCol - preCol) == 1 && targetRow == preRow + moveValue && hittingP != null
                         && hittingP.color != color) {
                     return true;
+                }
+
+                // En passant
+                if (Math.abs(targetCol - preCol) == 1 && targetRow == preRow + moveValue) {
+                    for (Piece piece : GamePanel.simPieces) {
+                        if (piece.col == targetCol && piece.row == preRow && piece.twoStepped == true) {
+                            hittingP = piece;
+                            return true;
+                        }
+                    }
                 }
 
             }
