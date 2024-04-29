@@ -262,10 +262,22 @@ public class GamePanel extends JPanel implements Runnable {
 
             checkCastling();
 
-            if (isIllegal(activeP) == false) {
+            if (isIllegal(activeP) == false && opponentCanCaptureKing() == false) {
                 validSquare = true;
             }
         }
+    }
+
+    private boolean opponentCanCaptureKing() {
+
+        Piece king = getKing(false);
+
+        for (Piece piece : simPieces) {
+            if (piece.color != king.color && piece.canMove(king.col, king.row)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean isIllegal(Piece king) {
