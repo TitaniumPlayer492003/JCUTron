@@ -108,6 +108,8 @@ public class Authenticator {
                 parentFrame.dispose(); // Close the login window
             } else {
                 // If credentials are invalid, show an error message
+                // usernameField.setText("");
+                passwordField.setText("");
                 JOptionPane.showMessageDialog(parentFrame, "Incorrect username or password", "Error",
                         JOptionPane.ERROR_MESSAGE);
             }
