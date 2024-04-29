@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+// import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -103,7 +103,8 @@ public class Authenticator {
 
             if (isValidCredentials(username, password)) {
                 // If credentials are valid, create a GamePanel instance and launch the game
-                GAME.NEW(); // This line is commented because it's not clear where you want to launch the game
+                GAME.NEW(); // This line is commented because it's not clear where you want to launch the
+                            // game
                 parentFrame.dispose(); // Close the login window
             } else {
                 // If credentials are invalid, show an error message
@@ -121,7 +122,8 @@ public class Authenticator {
         String dbUsername = "root";
         String dbPassword = "";
 
-        // SQL query to check if the provided username and password match any entry in the database
+        // SQL query to check if the provided username and password match any entry in
+        // the database
         String sql = "SELECT * FROM user WHERE name = ? AND password = ?";
 
         // Initialize database resources
@@ -149,7 +151,8 @@ public class Authenticator {
             ex.printStackTrace();
             return false; // Return false in case of any error
         } finally {
-            // Close database resources in a finally block to ensure proper resource management
+            // Close database resources in a finally block to ensure proper resource
+            // management
             try {
                 if (resultSet != null) {
                     resultSet.close();
