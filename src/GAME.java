@@ -1,19 +1,25 @@
 import javax.swing.JFrame;
 
 public class GAME {
-    public static void launch() {
-        JFrame window = new JFrame("JCUTron");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
+    public static void NEW() {
 
-        // Add GamePanelto the window
+        JFrame gameWindow = new JFrame("JCUTron");
+        gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set default close operation
+        
+        // Add GamePanel to the window
         GamePanel gp = new GamePanel();
-        window.add(gp);
-        window.pack(); // by doing this the window adjusts it size to the GamePanel
+        gp.launchGame(); // Once the window is created, call the launchGame method
+        
+        // Add the GamePanel to the CENTER of the JFrame's content pane
+        gameWindow.add(gp);
+        gameWindow.pack();
+        gameWindow.setLocationRelativeTo(null); // Center the window on the screen
 
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
-
-        gp.launchGame(); // once the window is created we call the launchGame method
+        // Make the window visible
+        gameWindow.setVisible(true);
     }
+
+    public static void main(String... avi){
+        NEW();
+    } 
 }
