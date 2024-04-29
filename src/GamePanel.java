@@ -595,7 +595,8 @@ public class GamePanel extends JPanel implements Runnable {
                     Piece k = getKing(false);
                     g2.setColor(Color.BLUE);
                     g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-                    g2.fillRect(k.col * Board.SQUARE_SIZE, k.row * Board.SQUARE_SIZE, Board.SQUARE_SIZE,Board.SQUARE_SIZE);
+                    g2.fillRect(k.col * Board.SQUARE_SIZE, k.row * Board.SQUARE_SIZE, Board.SQUARE_SIZE,
+                            Board.SQUARE_SIZE);
                     k.draw(g2);
                 }
                 if (isIllegal(activeP)) {
@@ -622,7 +623,7 @@ public class GamePanel extends JPanel implements Runnable {
             Piece k = getKing(true);
             g2.setColor(Color.BLUE);
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-            g2.fillRect(k.col * Board.SQUARE_SIZE, k.row * Board.SQUARE_SIZE, Board.SQUARE_SIZE,Board.SQUARE_SIZE);
+            g2.fillRect(k.col * Board.SQUARE_SIZE, k.row * Board.SQUARE_SIZE, Board.SQUARE_SIZE, Board.SQUARE_SIZE);
             k.draw(g2);
 
             String s = "";

@@ -16,7 +16,8 @@ public class GAME {
 
         gp.launchGame(); // once the window is created we call the launchGame method
     }
-    public static void main (String... avi){
+
+    public static void main(String... avi) {
         launch();
     }
 }
