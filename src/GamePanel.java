@@ -42,8 +42,8 @@ public class GamePanel extends JPanel implements Runnable {
         addMouseMotionListener(mouse);
         addMouseListener(mouse);
 
-        testPromotion();
-        // setPieces();
+        // testPromotion();
+        setPieces();
         copyPieces(pieces, simPieces);
     }
 
@@ -256,9 +256,23 @@ public class GamePanel extends JPanel implements Runnable {
 
             checkCastling();
 
-            validSquare = true;
+            if (isIllegal(activeP) == false) {
+                validSquare = true;
+            }
+        }
+    }
+
+    private boolean isIllegal(Piece king) {
+
+        if (king.type == Type.KING) {
+            for (Piece piece : GamePanel.simPieces) {
+                if (piece != king && piece.color != king.color && piece.canMove(king.col, king.row)) {
+                    return true;
+                }
+            }
         }
 
+        return false;
     }
 
     private void checkCastling() {
@@ -359,13 +373,17 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (activeP != null) {
             if (canMove) {
-                g2.setColor(Color.green);
-                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.25f));
+                if (isIllegal(activeP)) {
+                    g2.setColor(Color.gray);
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
+                } else {
+                    g2.setColor(Color.green);
+                    g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.25f));
+                }
                 g2.fillRect(activeP.col * Board.SQUARE_SIZE, activeP.row * Board.SQUARE_SIZE, Board.SQUARE_SIZE,
                         Board.SQUARE_SIZE);
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
             }
-
             activeP.draw(g2);
         }
         if (promotion) {
