@@ -206,8 +206,8 @@ public class GamePanel extends JPanel implements Runnable {
                         // isKingInCheck();
                         if (isKingInCheck() && isCheckmate()) {
                             gameover = true;
-                        } else if (isStalemate() && isKingInCheck() == false) {
-                            stalemate = true;
+                            // } else if (isStalemate() && isKingInCheck() == false) {
+                            // stalemate = true; 
                         } else {
                             // The game continues
                             if (canPromote()) {

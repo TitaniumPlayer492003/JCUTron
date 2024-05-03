@@ -14,6 +14,7 @@ public class GAME {
         gameWindow.add(gp);
         gameWindow.pack();
         gameWindow.setLocationRelativeTo(null); // Center the window on the screen
+        gameWindow.setResizable(false);
 
         // Make the window visible
         gameWindow.setVisible(true);
