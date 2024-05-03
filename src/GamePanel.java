@@ -207,7 +207,7 @@ public class GamePanel extends JPanel implements Runnable {
                         if (isKingInCheck() && isCheckmate()) {
                             gameover = true;
                             // } else if (isStalemate() && isKingInCheck() == false) {
-                            // stalemate = true; 
+                            // stalemate = true;
                         } else {
                             // The game continues
                             if (canPromote()) {
@@ -497,7 +497,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private boolean isStalemate() {
-        // TODO: Stalemate is possible even if there is more than just one(king) piece on the board.  
+        // TODO: Stalemate is possible even if there is more than just one(king) piece
+        // on the board.
         int count = 0;
         for (Piece piece : simPieces) {
             if (piece.color != currentColor) {
